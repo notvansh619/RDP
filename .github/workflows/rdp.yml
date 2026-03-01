@@ -19,7 +19,7 @@ jobs:
 
     - name: Connect Tailscale
       run: |
-        tailscale up --authkey=YOUR_AUTH_KEY
+        tailscale up --authkey=tskey-auth-kYPWZpoyrT11CNTRL-x2n8cB29mueqe2iUzXsiue5iHkPe6GprX
 
     - name: Keep Alive
       run: |
