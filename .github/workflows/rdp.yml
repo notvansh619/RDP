@@ -1,0 +1,26 @@
+name: Windows RDP
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Enable RDP
+      run: |
+        net user runneradmin YourPassword123
+        net localgroup administrators runneradmin /add
+        netsh advfirewall set allprofiles state off
+
+    - name: Install Tailscale
+      run: |
+        choco install tailscale -y
+
+    - name: Connect Tailscale
+      run: |
+        tailscale up --authkey=YOUR_AUTH_KEY
+
+    - name: Keep Alive
+      run: |
+        ping -t localhost
