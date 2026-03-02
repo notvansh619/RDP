@@ -7,9 +7,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
+
     - name: Enable RDP
       run: |
-        net user runneradmin YourPassword123
+        net user runneradmin Rdp@12345
         net localgroup administrators runneradmin /add
         netsh advfirewall set allprofiles state off
 
@@ -17,9 +18,17 @@ jobs:
       run: |
         choco install tailscale -y
 
+    - name: Start Tailscale Service
+      run: |
+        sc start Tailscale
+
     - name: Connect Tailscale
       run: |
-        tailscale up --authkey=tskey-auth-kYPWZpoyrT11CNTRL-x2n8cB29mueqe2iUzXsiue5iHkPe6GprX
+        "C:\Program Files\Tailscale\tailscale.exe" up --authkey=tskey-auth-kYPWZpoyrT11CNTRL-x2n8cB29mueqe2iUzXsiue5iHkPe6GprX
+
+    - name: Show IP
+      run: |
+        "C:\Program Files\Tailscale\tailscale.exe" ip -4
 
     - name: Keep Alive
       run: |
